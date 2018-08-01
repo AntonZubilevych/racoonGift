@@ -11,7 +11,7 @@ use App\Model\GiftReceiver\GiftReceiver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+
 
 
 class QuizController extends AbstractController
@@ -25,13 +25,9 @@ class QuizController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $category = $finder->chooseCategory($giftReceiver);
             $repository = $this->getDoctrine()->getRepository(Gift::class);
-            $gifts = $repository->findBy(
-                ['category' => $category],
-                ['price' => 'ASC']
-            );
 
-            return $this->redirectToRoute('result', array('result' => 10));
-
+           $res =  $repository->findByExampleFields($category,$giftReceiver->getPrice(),$giftReceiver->getLocation(),$giftReceiver->getHobby());
+           var_dump($res[0]->getId());
         }
 
         return $this->render('catalog/addGift.html.twig', array(
@@ -51,11 +47,9 @@ class QuizController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
 
             $repository = $this->getDoctrine()->getRepository(Gift::class);
-           $result =  $repository->findMaxId();
-           echo '<pre>';
-           var_dump($result[0]);
-            echo '</pre>';
+            $id =  $repository->findRandId();
 
+            return $this->redirectToRoute('result', array('id' => $id));
         }
 
         return $this->render('catalog/addGift.html.twig', array(
@@ -68,9 +62,10 @@ class QuizController extends AbstractController
     {
 
         $repository = $this->getDoctrine()->getRepository(Gift::class);
-        $id = $request->query->get('result');
+        $id = $request->query->get('id');
         $gift = $repository->find($id);
-        return new Response('');
 
+        var_dump($gift->getName());
+        return $this->render('catalog/addGift.html.twig', compact('gift'));
     }
 }

@@ -23,25 +23,42 @@ class GiftRepository extends ServiceEntityRepository
      * @return Gift[] Returns an array of Gift objects
      */
 
-    public function findByExampleField($value)
+    public function findByExampleFields($category,$price,$location,$hobby)
     {
+
+        if ($location == 'All Ukraine'){
+            $location = '*';
+        }
         return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('g.id', 'ASC')
+            ->andWhere('g.category = :category')
+            ->andWhere('g.location = :location')
+            ->andWhere('g.price > :price')
+            ->orWhere('g.hobby = :hobby')
+            ->setParameters([
+                'category' => $category,
+                'location' => $location,
+                'price' => $price,
+                'hobby' => $hobby
+            ])
+
+            ->orderBy('g.price', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
 
-    public function findMaxId()
+    public function findRandId()
     {
-        return $this->createQueryBuilder('p')
-            ->orderBy('p.id', 'ASC')
+        $result =  $this->createQueryBuilder('p')
+            ->orderBy('p.id', ' DESC')
             ->setMaxResults(1)
             ->getQuery()
             ->execute();
+
+        $MaxId = $result[0]->getId();
+
+        return  \rand(1,$MaxId);
 
     }
 
