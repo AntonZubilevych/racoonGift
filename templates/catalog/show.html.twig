@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello !{% endblock %}
+
+{% block body %}
+    {% for gift in gifts %}
+        <p>kk</p>
+        <img src="uploads\{{ gift.img}}">
+    {% endfor %}
+{% endblock %}

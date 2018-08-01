@@ -1,0 +1,18 @@
+index:
+    path: /
+    controller: App\Controller\HomePageController::home
+addGift:
+    path: /addGift
+    controller: App\Controller\CatalogController::addGift
+show:
+    path: /show
+    controller: App\Controller\CatalogController::show
+quiz:
+    path: /quiz
+    controller: App\Controller\QuizController::quiz
+result:
+    path: /result
+    controller: App\Controller\QuizController::result
+lucky:
+    path: /lucky
+    controller: App\Controller\QuizController::lucky
