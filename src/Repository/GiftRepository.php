@@ -30,7 +30,7 @@ class GiftRepository extends ServiceEntityRepository
             $location = '*';
         }
         return $this->createQueryBuilder('g')
-            ->andWhere('g.category = :category')
+            ->Where('g.category = :category')
             ->andWhere('g.location = :location')
             ->andWhere('g.price > :price')
             ->orWhere('g.hobby = :hobby')
