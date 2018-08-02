@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Entity\Gift;
+use App\Entity\Result;
 use App\Form\QuizType;
 use App\GiftFinderTool\GiftFinder;
 use App\Model\GiftReceiver\GiftReceiver;
@@ -26,8 +27,10 @@ class QuizController extends AbstractController
             $category = $finder->chooseCategory($giftReceiver);
             $repository = $this->getDoctrine()->getRepository(Gift::class);
 
-           $res =  $repository->findByExampleFields($category,$giftReceiver->getPrice(),$giftReceiver->getLocation(),$giftReceiver->getHobby());
-           var_dump($res[0]->getId());
+            $res =  $repository->findByExampleFields($category,$giftReceiver->getPrice(),$giftReceiver->getLocation(),$giftReceiver->getHobby());
+            $id = $res[0]->getId();
+
+            return $this->redirectToRoute('result', array('id' => $id));
         }
 
         return $this->render('catalog/addGift.html.twig', array(
@@ -62,8 +65,12 @@ class QuizController extends AbstractController
     {
 
         $repository = $this->getDoctrine()->getRepository(Gift::class);
+        $em = $this->getDoctrine()->getManager();
+
         $id = $request->query->get('id');
         $gift = $repository->find($id);
+
+
 
         var_dump($gift->getName());
         return $this->render('catalog/addGift.html.twig', compact('gift'));

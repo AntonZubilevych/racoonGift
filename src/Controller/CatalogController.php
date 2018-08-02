@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Category;
 use App\Entity\Gift;
 use App\Form\GiftType;
 use App\FileSystem\FileManager;
@@ -34,6 +35,8 @@ class CatalogController extends AbstractController
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($gift);
                 $entityManager->flush();
+
+                $this->redirectToRoute('success');
            }
 
         }
@@ -43,21 +46,36 @@ class CatalogController extends AbstractController
         ));
     }
 
-    public function showAll()
+    public function show()
     {
         $entityManager = $this->getDoctrine()->getManager();
         $repository =  $entityManager->getRepository(Gift::class);
         $gifts= $repository ->findAll();
 
-        return $this->render('catalog/show.html.twig',compact('gifts'));
+        $repositoryCategory = $entityManager->getRepository(Category::class);
+        $categories = $repositoryCategory->findAll();
+        return $this->render('catalog/show.html.twig',[
+            'categories'=>$categories,
+            'gifts'=>$gifts
+            ]);
     }
-    public function showCategory($id)
+
+    public function category($categoryName)
     {
         $entityManager = $this->getDoctrine()->getManager();
         $repository =  $entityManager->getRepository(Gift::class);
-        $gifts= $repository ->findAll();
+        $gifts = $repository->findOneBy(['category' => $categoryName]);
 
-        return $this->render('catalog/show.html.twig',compact('gifts'));
+        return $this->render('catalogCategory/category.html.twig',compact('gifts'));
+    }
+
+    public function gift($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $repository =  $entityManager->getRepository(Gift::class);
+        $gift = $repository->find($id);
+
+        return $this->render('catalog/gift.html.twig',compact('gift'));
     }
 
 }

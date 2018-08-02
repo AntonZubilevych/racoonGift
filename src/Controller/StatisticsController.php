@@ -9,7 +9,12 @@
 namespace App\Controller;
 
 
-class StatisticsController
-{
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+class StatisticsController extends AbstractController
+{
+    public function showPopular()
+    {
+        //TODO
+    }
 }

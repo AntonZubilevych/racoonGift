@@ -9,7 +9,23 @@
 namespace App\GiftFinderTool;
 
 
-class GiftStatistick
-{
 
+
+use App\Entity\Result;
+use App\FileSystem\FileNameInterface;
+
+class GiftStatistics
+{
+    static public function saveResult($entityManager ,$id):bool
+    {
+        $result = new Result();
+        $result->getGift($id);
+        $result->setCreatedAt(new \DateTime());
+        try{
+            $entityManager->persist($result);
+            $entityManager->flush();
+        }catch (\RuntimeException $e){
+            throw new \RuntimeException('Something bad with saving results');
+        }
+    }
 }

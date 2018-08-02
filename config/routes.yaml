@@ -1,6 +1,6 @@
 index:
     path: /
-    controller: App\Controller\HomePageController::home
+    controller: App\Controller\HomePageController::index
 addGift:
     path: /addGift
     controller: App\Controller\CatalogController::addGift
@@ -16,3 +16,9 @@ result:
 lucky:
     path: /lucky
     controller: App\Controller\QuizController::lucky
+category:
+    path: /category/{$categoryName}
+    controller: App\Controller\CatalogController::category
+success:
+    path: /success
+    controller: App\Controller\HomeController::success
