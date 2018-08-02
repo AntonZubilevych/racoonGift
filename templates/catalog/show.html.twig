@@ -2,8 +2,20 @@
 {% block title %}Hello !{% endblock %}
 
 {% block body %}
+    <div class="row">
     {% for gift in gifts %}
-        <p>kk</p>
-        <img src="uploads\{{ gift.img}}">
+
+        <div class="col-md-3">
+            <div class="card">
+                <a href="gift/{{ gift.id }}">
+                    <img src="uploads/{{gift.img}}" class="img-responsive img-thumbnail">
+                    <p class="price">
+                       {{ gift.price }} UAH
+                    </p>
+                    <h2>{{ gift.name }}</h2>
+                </a>
+            </div>
+        </div>
     {% endfor %}
+    </div>
 {% endblock %}

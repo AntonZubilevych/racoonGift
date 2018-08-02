@@ -17,8 +17,11 @@ lucky:
     path: /lucky
     controller: App\Controller\QuizController::lucky
 category:
-    path: /category/{$categoryName}
+    path: /category/{categoryName}
     controller: App\Controller\CatalogController::category
+gift:
+    path: /gift/{id}
+    controller: App\Controller\CatalogController::gift
 success:
     path: /success
     controller: App\Controller\HomeController::success

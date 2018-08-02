@@ -66,7 +66,7 @@ class CatalogController extends AbstractController
         $repository =  $entityManager->getRepository(Gift::class);
         $gifts = $repository->findOneBy(['category' => $categoryName]);
 
-        return $this->render('catalogCategory/category.html.twig',compact('gifts'));
+        return $this->render('catalogCategory/show.html.twig',compact('gifts'));
     }
 
     public function gift($id)
