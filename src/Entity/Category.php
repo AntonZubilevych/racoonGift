@@ -9,6 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category
 {
+    const OLDER = 'older';
+    const CHILDREN = 'children';
+    const MEN = 'men';
+    const WOMEN = 'women';
+    const TEEN_BOY = 'boyTeen';
+    const TEEN_GIRL = 'girlTeen';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

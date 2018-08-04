@@ -15,11 +15,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
-use App\Entity\Category;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Model\GiftReceiver\GiftReceiver;
+use App\GiftFinderTool\GiftReceiverToolFactory\GiftReceiver;
 
 class QuizType extends AbstractType
 {
@@ -41,6 +40,7 @@ class QuizType extends AbstractType
             ))
             ->add('save',SubmitType::class,['label'=>'Find Gift']);
     }
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(

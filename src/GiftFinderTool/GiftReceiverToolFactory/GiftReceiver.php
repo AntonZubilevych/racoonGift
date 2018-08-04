@@ -6,21 +6,19 @@
  * Time: 22:36
  */
 
-namespace App\Model\GiftReceiver;
+namespace App\GiftFinderTool\GiftReceiverToolFactory;
 
 
-class GiftReceiver
+use App\Entity\Category;
+
+
+class GiftReceiver implements GiftReceiverInterface
 {
     protected $age;
     protected $price;
     protected $sex;
     protected $location;
     protected $hobby;
-
-    static public function fromForm()
-    {
-
-    }
 
     /**
      * @return mixed
@@ -100,5 +98,24 @@ class GiftReceiver
     public function setHobby($hobby): void
     {
         $this->hobby = $hobby;
+    }
+
+    public function chooseCategory():string
+    {
+
+        switch (true) {
+            case ($this->age <=16):
+                return Category::CHILDREN;
+            case ($this->age > 16 && $this->age <= 24 && $this->sex == 'male'):
+                return Category::TEEN_BOY;
+            case ($this->age > 16 && $this->age <= 24 && $this->sex == 'female'):
+                return Category::TEEN_GIRL;
+            case ($this->sex == 'male' && $this->age > 24 && $this->age <35  ):
+                return Category::MEN;
+            case ($this->sex > 24  && $this->sex == 'female' && $this->age <35 ):
+                return Category::WOMEN;
+            case ($this->age >= 35 ):
+                return  Category::OLDER;
+        }
     }
 }
