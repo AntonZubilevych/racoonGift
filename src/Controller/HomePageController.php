@@ -12,7 +12,7 @@ class HomePageController extends Controller
     public function index(Request $request)
     {
         $form = $this->createFormBuilder()
-            ->add('save', SubmitType::class, array('label' => 'Let`s Start'))
+            ->add('save', SubmitType::class, ['label' => 'Let`s Start'])
             ->getForm();
 
         $form->handleRequest($request);
@@ -21,9 +21,9 @@ class HomePageController extends Controller
             return $this->redirectToRoute('quiz');
         }
 
-        return $this->render('homePage/index.html.twig', array(
+        return $this->render('homePage/index.html.twig', [
             'form' => $form->createView(),
-        ));
+        ]);
     }
 
     public function success()

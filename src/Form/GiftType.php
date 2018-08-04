@@ -34,14 +34,14 @@ class GiftType extends AbstractType
             ->add('category',EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name'])
-            ->add('img', FileType::class, array('label' => 'Gift picture'))
+            ->add('img', FileType::class, ['label' => 'Gift picture'])
             ->add('save',SubmitType::class,['label'=>'Create Gift']);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => Gift::class,
-        ));
+        ]);
     }
 }

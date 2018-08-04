@@ -28,7 +28,11 @@ class QuizController extends AbstractController
                 $giftReceiver->getHobby()
             );
 
-            return $this->redirectToRoute('result', array('id' => $id));
+            if(empty($id)){
+                return $this->redirectToRoute('lucky');
+            }
+
+            return $this->redirectToRoute('result', ['id' => $id]);
         }
 
         return $this->render('catalog/addGift.html.twig', [
@@ -39,7 +43,7 @@ class QuizController extends AbstractController
     public function lucky(Request $request)
     {
         $form = $this->createFormBuilder()
-            ->add('save', SubmitType::class, array('label' => 'Find Random Gift'))
+            ->add('save', SubmitType::class, ['label' => 'Find Random Gift'])
             ->getForm();
 
         $form->handleRequest($request);
@@ -48,7 +52,7 @@ class QuizController extends AbstractController
             $repository = $this->getDoctrine()->getRepository(Gift::class);
             $id =  $repository->findRandId();
 
-            return $this->redirectToRoute('result', array('id' => $id));
+            return $this->redirectToRoute('result', ['id' => $id]);
         }
 
         return $this->render('catalog/addGift.html.twig', [

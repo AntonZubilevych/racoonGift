@@ -28,9 +28,9 @@ class AdminController extends AbstractController
             }
         }
 
-        return $this->render('catalog/addGift.html.twig', array(
+        return $this->render('catalog/addGift.html.twig', [
             'form' => $form->createView(),
-        ));
+        ]);
     }
 
 }

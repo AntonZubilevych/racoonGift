@@ -32,19 +32,19 @@ class QuizType extends AbstractType
             ->add('hobby',EntityType::class, [
                 'class' => Hobby::class,
                 'choice_label' => 'name'])
-            ->add('sex', ChoiceType::class, array(
-                'choices'  => array(
+            ->add('sex', ChoiceType::class, [
+                'choices'  => [
                     'male'=>'male',
                     'female'=>'female'
-                ),
-            ))
+                ],
+            ])
             ->add('save',SubmitType::class,['label'=>'Find Gift']);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => GiftReceiver::class
-        ));
+        ]);
     }
 }
