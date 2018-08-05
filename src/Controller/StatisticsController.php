@@ -8,12 +8,12 @@
 
 namespace App\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 class StatisticsController extends AbstractController
 {
-    public function showPopular()
+    public function showPopular():Response
     {
         //TODO
     }

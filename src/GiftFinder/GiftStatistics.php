@@ -6,7 +6,7 @@
  * Time: 14:01
  */
 
-namespace App\GiftFinderTool\StatisticsToolFactory;
+namespace App\GiftFinder;
 
 
 class GiftStatistics implements StatisticsInterface

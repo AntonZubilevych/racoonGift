@@ -6,11 +6,9 @@
  * Time: 22:36
  */
 
-namespace App\GiftFinderTool\GiftReceiverToolFactory;
-
+namespace App\GiftFinder;
 
 use App\Entity\Category;
-
 
 class GiftReceiver implements GiftReceiverInterface
 {
@@ -102,7 +100,6 @@ class GiftReceiver implements GiftReceiverInterface
 
     public function chooseCategory():string
     {
-
         switch (true) {
             case ($this->age <=16):
                 return Category::CHILDREN;

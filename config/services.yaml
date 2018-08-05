@@ -29,16 +29,25 @@ services:
         tags: ['controller.service_arguments']
 
     # File manager
-    App\FileSystem\FileManager:
+    App\FileSystem\AbstractFileManager:
         arguments:
         - '@app.filesystem.file_name'
         - '%app.uploads_dir%'
+
+    App\FileSystem\ImageManager:
+        arguments:
+        - '@app.filesystem.file_name'
+        - '%app.uploads_dir%'
+        - '@app.image'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
     app.filesystem.file_name:
         class: App\FileSystem\Md5FileName
+    app.image:
+        class: Imagine\Imagick\Imagine
 
     #Aliases
     App\FileSystem\Md5FileName: '@app.filesystem.file_name'
+

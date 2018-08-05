@@ -6,7 +6,7 @@
  * Time: 13:57
  */
 
-namespace App\GiftFinderTool\StatisticsToolFactory;
+namespace App\GiftFinder;
 
 
 interface StatisticsInterface

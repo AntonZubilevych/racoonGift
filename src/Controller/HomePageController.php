@@ -3,13 +3,12 @@
 namespace App\Controller;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\{Request,Response};
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class HomePageController extends Controller
 {
-
-    public function index(Request $request)
+    public function index(Request $request):Response
     {
         $form = $this->createFormBuilder()
             ->add('save', SubmitType::class, ['label' => 'Let`s Start'])
@@ -30,5 +29,4 @@ class HomePageController extends Controller
     {
         return $this->render('homePage/success.html.twig');
     }
-
 }

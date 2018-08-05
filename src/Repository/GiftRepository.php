@@ -23,13 +23,13 @@ class GiftRepository extends ServiceEntityRepository
      * @return Gift[] Returns an array of Gift objects
      */
 
-    public function findGiftByFields($category,$price,$location,$hobby)
+    public function findGiftByFields($category,$price,$location,$hobby):int
     {
 
         if ($location == 'All Ukraine'){
             $location = '*';
         }
-        return $this->createQueryBuilder('g')
+        $result =  $this->createQueryBuilder('g')
             ->select('g.id')
             ->Where('g.category = :category')
             ->andWhere('g.location = :location')
@@ -45,6 +45,8 @@ class GiftRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
 
+        return $result[0]['id'];
+
     }
 
     public function findRandId():int
@@ -55,7 +57,7 @@ class GiftRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
 
-        $id = $result[0]->getId();
+        $id = $result[0]['id'];
 
         return  \rand(1, $id);
     }

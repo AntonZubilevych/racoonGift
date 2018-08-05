@@ -4,16 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Gift;
 use App\Form\QuizType;
-use App\GiftFinderTool\GiftReceiverToolFactory\GiftReceiverToolFactory;
+use App\GiftFinder\GiftReceiver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\{Request,Response};
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class QuizController extends AbstractController
 {
-    public function quiz(Request $request,GiftReceiverToolFactory $giftReceiverToolFactory)
+    public function quiz(Request $request,GiftReceiver $giftReceiver):Response
     {
-        $giftReceiver = $giftReceiverToolFactory->create();
         $form = $this->createForm(QuizType::class,$giftReceiver);
         $form->handleRequest($request);
 
@@ -21,14 +20,12 @@ class QuizController extends AbstractController
             $category = $giftReceiver->chooseCategory();
             $repository = $this->getDoctrine()->getRepository(Gift::class);
 
-            $result =  $repository->findGiftByFields(
+            $id = $repository->findGiftByFields(
                 $category,
                 $giftReceiver->getPrice(),
                 $giftReceiver->getLocation(),
                 $giftReceiver->getHobby()
             );
-
-            $id =  $result[0]['id'];
 
             if(empty($id)){
                 return $this->redirectToRoute('lucky');
@@ -42,7 +39,7 @@ class QuizController extends AbstractController
         ]);
     }
 
-    public function lucky(Request $request)
+    public function lucky(Request $request):Response
     {
         $form = $this->createFormBuilder()
             ->add('save', SubmitType::class, ['label' => 'Find Random Gift'])
@@ -62,7 +59,7 @@ class QuizController extends AbstractController
         ]);
     }
 
-    public function result(Request $request)
+    public function result(Request $request):Response
     {
         $repository = $this->getDoctrine()->getRepository(Gift::class);
         $id = $request->query->get('id');

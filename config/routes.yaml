@@ -3,7 +3,7 @@ index:
     controller: App\Controller\HomePageController::index
 addGift:
     path: /addGift
-    controller: App\Controller\Admin\AdminController::addGift
+    controller: App\Controller\Admin\CatalogController::addGift
 show:
     path: /show
     controller: App\Controller\CatalogController::show

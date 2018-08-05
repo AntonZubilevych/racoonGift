@@ -4,16 +4,13 @@ namespace App\Controller\Admin;
 
 use App\Entity\Gift;
 use App\Form\GiftType;
-use App\FileSystem\FileManager;
+use App\FileSystem\ImageManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\{Request,Response};
 
-
-class AdminController extends AbstractController
+class CatalogController extends AbstractController
 {
-
-
-    public function addGift(Request $request , FileManager $fileManager  )
+    public function addGift(Request $request , ImageManager $imgManager ):Response
     {
         $gift = new Gift();
         $form = $this->createForm(GiftType::class,$gift);
@@ -21,9 +18,8 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
             $file = $gift->getImg();
-            if ($fileName = $fileManager->upload($file)){
-
-
+            $imgManager->resize($file);
+            if ($fileName = $imgManager->upload($file)){
                 $gift->setImg($fileName);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($gift);
@@ -36,5 +32,4 @@ class AdminController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
 }

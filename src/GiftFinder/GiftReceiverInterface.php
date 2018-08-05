@@ -6,7 +6,7 @@
  * Time: 15:24
  */
 
-namespace App\GiftFinderTool\GiftReceiverToolFactory;
+namespace App\GiftFinder;
 
 
 
@@ -17,5 +17,4 @@ interface GiftReceiverInterface
      * @return string
      */
     public function chooseCategory (): string;
-
 }
