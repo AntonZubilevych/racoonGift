@@ -8,10 +8,12 @@ use App\FileSystem\FileManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
+
 class AdminController extends AbstractController
 {
 
-    public function addGift(Request $request , FileManager $fileManager)
+
+    public function addGift(Request $request , FileManager $fileManager  )
     {
         $gift = new Gift();
         $form = $this->createForm(GiftType::class,$gift);
@@ -20,6 +22,8 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
             $file = $gift->getImg();
             if ($fileName = $fileManager->upload($file)){
+
+
                 $gift->setImg($fileName);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($gift);

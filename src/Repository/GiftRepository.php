@@ -41,11 +41,10 @@ class GiftRepository extends ServiceEntityRepository
                 'price' => $price,
                 'hobby' => $hobby
             ])
-
-            ->orderBy('g.price', 'ASC')
+            ->setMaxResults(1)
             ->getQuery()
-            ->getFirstResult()
-        ;
+            ->execute();
+
     }
 
     public function findRandId():int
@@ -56,8 +55,9 @@ class GiftRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
 
-        return  array_rand($result);
+        $id = $result[0]->getId();
 
+        return  \rand(1, $id);
     }
 
 }

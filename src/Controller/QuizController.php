@@ -21,12 +21,14 @@ class QuizController extends AbstractController
             $category = $giftReceiver->chooseCategory();
             $repository = $this->getDoctrine()->getRepository(Gift::class);
 
-            $id =  $repository->findGiftByFields(
+            $result =  $repository->findGiftByFields(
                 $category,
                 $giftReceiver->getPrice(),
                 $giftReceiver->getLocation(),
                 $giftReceiver->getHobby()
             );
+
+            $id =  $result[0]['id'];
 
             if(empty($id)){
                 return $this->redirectToRoute('lucky');
