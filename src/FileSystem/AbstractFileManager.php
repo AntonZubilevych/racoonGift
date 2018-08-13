@@ -11,7 +11,7 @@ namespace App\FileSystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class AbstractFileManager
+abstract class AbstractFileManager
 {
     protected $fileName;
     protected $uploadDir;

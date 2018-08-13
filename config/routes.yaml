@@ -25,3 +25,6 @@ gift:
 success:
     path: /success
     controller: App\Controller\HomeController::success
+register:
+    path: /register
+    controller: App\Controller\RegistrationController::register
